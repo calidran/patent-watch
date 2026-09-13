@@ -7,7 +7,7 @@ patent-watch — a small agent over the patent-status API (https://github.com/ca
     patent-watch poll ent_... --slack $WEBHOOK      # diff against last run; notify on new events (run from cron)
     patent-watch monitor ent_... --webhook URL      # server-side monitor: the API pushes signed events to your URL
 
-Config: PATENT_API_KEY (or ~/.patent-watch.json written by `signup`), PATENT_API_URL (default https://api.patent-status.dev).
+Config: PATENT_API_KEY (or ~/.patent-watch.json written by `signup`), PATENT_API_URL (default https://api.patentdata.ai).
 State for `poll` lives in ~/.patent-watch-state.json (last seen transaction per application).
 """
 from __future__ import annotations
@@ -27,7 +27,7 @@ EVENTS = ("office_action", "allowance", "abandonment", "grant", "publication", "
 
 
 def base_url() -> str:
-    return os.environ.get("PATENT_API_URL", "").strip() or _config().get("url") or "https://api.patent-status.dev"
+    return os.environ.get("PATENT_API_URL", "").strip() or _config().get("url") or "https://api.patentdata.ai"
 
 
 def _config() -> dict:

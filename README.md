@@ -2,7 +2,7 @@
 
 Watch a company's US patent portfolio and get told when something happens: an office action, a notice of
 allowance, an abandonment, a grant, an assignment, a PTAB petition. Built on the
-[patent-status API](https://github.com/calidran/patent-api) (USPTO bulk data, refreshed daily; per-request pricing,
+[Patent Data API](https://patentdata.ai) (USPTO bulk data, refreshed daily; per-request pricing,
 no seats, redistribution allowed).
 
 ## If you are an agent
@@ -29,7 +29,7 @@ Deliveries carry `X-Signature: sha256=<hmac-sha256(secret, body)>`.
 ## If you use Claude Code
 
 ```bash
-claude mcp add --transport http patent-status https://api.patent-status.dev/mcp --header "Authorization: Bearer $PATENT_API_KEY"
+claude mcp add --transport http patent-data https://api.patentdata.ai/mcp --header "Authorization: Bearer $PATENT_API_KEY"
 ```
 
 Then: *"What's the status of application 17942951 and who owns it?"*
