@@ -5,7 +5,7 @@ description = "Watch a company's US patent applications: office actions, allowan
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
-authors = [{ name = "Calidran", email = "rish@patentdata.ai" }]
+authors = [{ name = "Patent Data", email = "rish@patentdata.ai" }]
 keywords = ["patents", "uspto", "patent-status", "office-action", "mcp", "agents"]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -19,7 +19,7 @@ dependencies = ["httpx>=0.27", "click>=8.1"]
 
 [project.urls]
 Homepage = "https://patentdata.ai"
-Source = "https://github.com/calidran/patent-watch"
+Source = "https://github.com/rishavmukherji/patent-watch"
 "API docs" = "https://api.patentdata.ai/docs"
 
 [project.scripts]

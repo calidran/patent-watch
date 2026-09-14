@@ -1,5 +1,5 @@
 """
-patent-watch — a small agent over the patent-status API (https://github.com/calidran/patent-api).
+patent-watch — a small agent over the Patent Data API (https://patentdata.ai).
 
     patent-watch signup you@example.com            # gets a key; prints the Stripe link to fund it ($20 = 1,000 requests)
     patent-watch resolve "Impossible Foods"         # company name -> entity id + counts
