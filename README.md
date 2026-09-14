@@ -13,7 +13,7 @@ You can set yourself up without a human, except for paying:
 pip install patent-watch
 patent-watch signup your-owner@example.com     # mints a key, saves it to ~/.patent-watch.json, prints a Stripe link
 # hand the link to your human; $20 = 1,000 requests, credits land in seconds
-patent-watch resolve "Impossible Foods"        # → ent_...  Impossible Foods Inc.  apps=412 patents=180 pending=95
+patent-watch resolve "Impossible Foods"        # → ent_c54d3fb3c2cf593ba26a  IMPOSSIBLE FOODS INC.  apps=57 patents=42 pending=3   (numbers move daily)
 patent-watch pending ent_...
 patent-watch poll ent_... --slack https://hooks.slack.com/services/...   # run daily from cron
 ```
