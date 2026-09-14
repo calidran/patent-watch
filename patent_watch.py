@@ -21,6 +21,15 @@ from pathlib import Path
 import click
 import httpx
 
+from importlib.metadata import PackageNotFoundError, version as _pkg_version
+
+try:
+    VERSION = _pkg_version("patent-watch")
+except PackageNotFoundError:   # running the file directly, not the installed package
+    VERSION = "dev"
+# how the API tells patent-watch signups and requests apart from other agents (orgs.signup_channel = patent_watch)
+HEADERS = {"User-Agent": f"patent-watch/{VERSION}"}
+
 CONFIG = Path.home() / ".patent-watch.json"
 STATE = Path.home() / ".patent-watch-state.json"
 EVENTS = ("office_action", "allowance", "abandonment", "grant", "publication", "assignment", "ptab_petition")
@@ -42,7 +51,7 @@ def api_key() -> str:
 
 
 def client() -> httpx.Client:
-    return httpx.Client(base_url=base_url(), headers={"X-API-KEY": api_key()}, timeout=30)
+    return httpx.Client(base_url=base_url(), headers={**HEADERS, "X-API-KEY": api_key()}, timeout=30)
 
 
 def get(c: httpx.Client, path: str, **params) -> dict:
@@ -66,7 +75,7 @@ def cli() -> None:
 @click.option("--url", default=None, help="API base URL")
 def signup(owner_email: str, agent_name: str, url: str | None) -> None:
     u = url or base_url()
-    r = httpx.post(f"{u}/agent/signup", json={"owner_email": owner_email, "agent_name": agent_name}, timeout=30)
+    r = httpx.post(f"{u}/agent/signup", json={"owner_email": owner_email, "agent_name": agent_name}, headers=HEADERS, timeout=30)
     if r.status_code >= 400:
         raise click.ClickException(f"{r.status_code} {r.text[:300]}")
     data = r.json()
@@ -77,7 +86,7 @@ def signup(owner_email: str, agent_name: str, url: str | None) -> None:
 
 
 def fund_link(u: str, key: str, amount: int = 20) -> None:
-    r = httpx.post(f"{u}/agent/checkout-link", json={"amount_usd": amount}, headers={"X-API-KEY": key}, timeout=30)
+    r = httpx.post(f"{u}/agent/checkout-link", json={"amount_usd": amount}, headers={**HEADERS, "X-API-KEY": key}, timeout=30)
     if r.status_code == 503:
         click.echo("billing is not configured on this server yet; ask the operator for credits")
         return
